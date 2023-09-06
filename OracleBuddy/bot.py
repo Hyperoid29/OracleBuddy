@@ -84,4 +84,26 @@ async def subtract(ctx, *arr):
     await ctx.send(f"Result: {result}")
 
 
+
+@bot.command()
+async def embed(ctx, member: discord.Member = None):
+    if member == None:
+        member = ctx.author
+
+    name = member.display_name
+    pfp = member.display_avatar
+
+    embed = discord.Embed(title="This is my embed",
+                          description="Its a very cool embed", colour=discord.Colour.random())
+    embed.set_author(name=f"{name}", url="", icon_url="")
+    embed.set_thumbnail(url=f"{pfp}")
+    embed.add_field(name="This is 1 field", value="This field is just a value")
+    embed.add_field(name="This is 2 field",
+                    value="This field is inline true", inline=True)
+    embed.add_field(name="This is 3 field",
+                    value="This field is inline false", inline=False)
+    embed.set_footer(text=f"{name} Made this embed")
+
+    await ctx.send(embed=embed)
+
 bot.run(BOT_TOKEN)
